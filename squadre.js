@@ -7,6 +7,7 @@ var partiteBrasile = [];
 var partiteRussia = [];
 var partiteSvezia = [];
 var partiteItalia = [];
+var idS = 8;
 const francia = {
     id: 1,
     name: "Francia",
@@ -56,14 +57,56 @@ const italia = {//scusate non mi ricordavo l'ottava
     matches: partiteItalia
 }
 var squadre = [francia, brasile, italia, svezia, russia, croazia, belgio, inghilterra];
-partiteFrancia = [{opponent: brasile, outcome:"W"}, {opponent: belgio, outcome:"W"}]
-partiteItalia = [{opponent: svezia, outcome:"L"}]
+partiteFrancia = [{opponent: "brasile", outcome:"W"}, {opponent: "belgio", outcome:"W"}]
+partiteItalia = [{opponent: "svezia", outcome:"L"}]
 
 
 exports.getSquadra = function(id){
   for (var i = 0; i < squadre.length; i++) {
     if(squadre[i].id == parseInt(id)){
       return squadre[i];
+    }
+  }
+}
+exports.putSquadra = function(squadra){
+  idS = idS+1;
+  squadra.id = idS
+  squadre[squadre.length] = squadra;
+
+}
+
+exports.modifySquadra = function(id, name, is_still_in){
+  for (var i = 0; i < squadre.length; i++) {
+    if(squadre[i].id == parseInt(id)){
+      squadre[i].name = name;
+      squadre[i].is_still_in = is_still_in;
+    }
+  }
+}
+exports.getMatch = function(id, opponent){
+  for (var i = 0; i < squadre.length; i++) {
+    if(squadre[i].id == parseInt(id)){
+      for(var j = 0; j < squadre[i].matches.length; j++)
+        if(squadre[i].matches[j].opponent == opponent){
+          return squadre[i].matches[j];
+        }
+    }
+  }
+}
+exports.putMatch= function(idSquadra, match){
+  for (var i = 0; i < squadre.length; i++) {
+    if(squadre[i].id == parseInt(id)){
+      squadre[i].matches[squadre[i].matches.length] = match;
+    }
+  }
+
+}
+
+exports.modifyMatch = function(id, name, is_still_in){
+  for (var i = 0; i < squadre.length; i++) {
+    if(squadre[i].id == parseInt(id)){
+      squadre[i].name = name;
+      squadre[i].is_still_in = is_still_in;
     }
   }
 }

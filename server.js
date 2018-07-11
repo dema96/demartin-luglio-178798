@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
 
 var router = express.Router();
 
-router.get('/team/:id', function (req, res) {
+router.get('/:id', function (req, res) {
     var squadra = squadre.getSquadra(req.params.id);
 
     res.send({
@@ -29,8 +29,33 @@ router.get('/team/:id', function (req, res) {
       "is_stil_in": squadra.is_still_in
     });
 });
+router.get('/getmatch', function (req, res) {
+    var id = req.query.id;
+    var opponent = req.query.opponent;
+    var match = squadre.getMatch;
 
-app.use('/', router);
+
+    res.send({
+      "Opponent": match.opponent,
+      "risultato": match.outcome
+    });
+});
+
+router.put('/add', function(req, res){
+      console.log(req.body.name);
+      console.log(req.body.isin);
+      var squadra = {
+        id: 1,
+        name: req.body.name,
+        is_still_in: req.body.isin
+      }
+      squadre.putSquadra(squadra);
+      res.send(
+        "squadra inserita con successo"
+      );
+});
+
+app.use('/team', router);
 
 app.listen(port, function(){
   console.log('Server in ascolto porta 8080')
