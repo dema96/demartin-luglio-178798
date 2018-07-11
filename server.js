@@ -4,6 +4,10 @@ var bodyParser = require('body-parser');
 var app = express();
 var port = process.env.PORT || 8080
 
+var squadre = require('./squadre');
+
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -16,8 +20,14 @@ app.use(function (req, res, next) {
 
 var router = express.Router();
 
-router.get('/', function (req, res) {
-    res.send("Esame 11 luglio demartin");
+router.get('/team/:id', function (req, res) {
+    var squadra = squadre.getSquadra(req.params.id);
+
+    res.send({
+      "id":squadra.id,
+      "Nome": squadra.name,
+      "is_stil_in": squadra.is_still_in
+    });
 });
 
 app.use('/', router);
