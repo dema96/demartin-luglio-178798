@@ -4,7 +4,8 @@
   "description": "esame ingegneria del software 2 11/07",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node server.js"	
   },
   "repository": {
     "type": "git",
