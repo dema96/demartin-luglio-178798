@@ -1,0 +1,124 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: "Esame 11 Luglio 2018"
+  description: Managing and monitoring assignments and exams
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Federico De Martin
+    email: federico.demartin@studenti.unitn.it
+    url: www.demartin.net
+  license:
+    name: Trento
+host: https://demartin-luglio-178798.herokuapp.com
+basePath: /team
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /{id}:
+    get:
+      description: restituisce squadra con id specificato
+      operationId: getSquadra
+      parameters:
+        - name: id
+          in: path
+          description: UUID of task
+          required: true
+          type: string
+      responses:
+        200:
+          description: restituisce squadra
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Squadra'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /add:
+    put:
+      description: Aggiunge squadra
+      operationId: addSquadra
+      parameters:
+        - name: id
+          in: path
+          description: ID of squadra
+          required: true
+          type: string
+          x-example: 'some-example'
+        - name: naome
+          in: body
+          description: nome squadra da aggiungere
+          required: true
+          schema:
+            $ref: '#/definitions/Squadra'
+      responses:
+        202:
+          description: squadra add response
+          schema:
+            $ref: '#/definitions/Squadra'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /modsquadra
+    post:
+      description: modifica squadra
+      operationId: modSquadra
+      parameter:
+        -name: id
+        -in: body
+      responses:
+        202:
+          description: squadra update response
+          schema:
+            $ref: '#/definitions/Squadra'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  Squadra:
+    allOf:
+      - $ref: '#/definitions/NewSquadra'
+      - required:
+        - assignmentID
+        properties:
+          assignmentID:
+            type: string
+          ipAddress:
+            type: string
+            format: ipv6
+          dateUpdated:
+            type: string
+            format: date-time
+  NewSquadra:
+    required:
+      - squadraID
+      - name
+      - is_still_in
+    properties:
+      squadraID:
+        type: int
+      name:
+        type: string
+      is_still_in:
+        type: book
+      status:
+        type: string
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
