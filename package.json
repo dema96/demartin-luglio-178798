@@ -1,0 +1,23 @@
+{
+  "name": "demartin-luglio-178798",
+  "version": "1.0.0",
+  "description": "esame ingegneria del software 2 11/07",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dema96/demartin-luglio-178798.git"
+  },
+  "author": "Federico De Martin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dema96/demartin-luglio-178798/issues"
+  },
+  "homepage": "https://github.com/dema96/demartin-luglio-178798#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
